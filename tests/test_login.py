@@ -3,6 +3,7 @@ from locators import MainPage, LoginPage, RegisterPage, ForgotPasswordPage
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from data import perform_login
+
 class TestLogin:
     @pytest.mark.parametrize("login_method", [
         "main_button",
@@ -12,7 +13,6 @@ class TestLogin:
     ])
     def test_login(self, driver, test_user, login_method):
         user = test_user
-       
         if login_method == "main_button":
             driver.find_element(*MainPage.LOGIN_BUTTON).click()
         elif login_method == "personal_account":
@@ -25,12 +25,10 @@ class TestLogin:
             driver.find_element(*MainPage.LOGIN_BUTTON).click()
             WebDriverWait(driver, 3).until(EC.element_to_be_clickable(LoginPage.FORGOT_PASSWORD_LINK)).click()
             driver.find_element(*ForgotPasswordPage.LOGIN_LINK).click()
-    
-        perform_login(driver, user["email"], user["password"])
 
+        perform_login(driver, user["email"], user["password"])
         order_button = WebDriverWait(driver, 5).until(
             EC.visibility_of_element_located(MainPage.ORDER_BUTTON)
         )
         assert order_button.is_displayed()
-        driver.quit()
         

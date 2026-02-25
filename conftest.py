@@ -12,7 +12,8 @@ def driver():
     options.add_experimental_option("prefs", prefs)
     driver = webdriver.Chrome(options=options)
     driver.get("https://stellarburgers.education-services.ru/")
-    return driver
+    yield driver
+    driver.quit()
 
 @pytest.fixture
 def new_user():   

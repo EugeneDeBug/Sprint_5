@@ -1,29 +1,35 @@
 import pytest
-from selenium.webdriver.common.by import By
 from locators import MainPage
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 class TestConstructorTabs:
-    @pytest.mark.parametrize("tab_locator, expected_text", [
-        (MainPage.BUNS_TAB, "Булки"),
-        (MainPage.SAUCES_TAB, "Соусы"),
-        (MainPage.FILLINGS_TAB, "Начинки")])
-    
-    def test_switch_tabs(self, driver, tab_locator, expected_text):
    
-        current_active = driver.find_element(*MainPage.ACTIVE_TAB)
-        active_text = current_active.find_element(By.XPATH, ".//span").text
-        if active_text == expected_text:
-            assert active_text == expected_text
-            driver.quit()
-            return
-    
-        tab = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(tab_locator))
-        tab.click()    
-        active_tab = WebDriverWait(driver, 5).until(
-        EC.visibility_of_element_located(MainPage.ACTIVE_TAB)
-        )
-        assert expected_text in active_tab.text
-        driver.quit()
+    def test_buns_tab(self, driver):
+        
+        sauces_tab = WebDriverWait(driver, 2).until(EC.element_to_be_clickable(MainPage.SAUCES_TAB))
+        sauces_tab.click()
+        WebDriverWait(driver, 3).until(EC.visibility_of_element_located(MainPage.ACTIVE_TAB_SAUCES)) 
+        
+        buns_tab = WebDriverWait(driver, 5).until(EC.element_to_be_clickable(MainPage.BUNS_TAB))
+        buns_tab.click()
+
+        active_tab = WebDriverWait(driver,5).until(EC.visibility_of_element_located(MainPage.ACTIVE_TAB_BUNS))
+        assert "Булки" in active_tab.text
+
+    def test_sauces_tab(self, driver):
+        
+        sauces_tab = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(MainPage.SAUCES_TAB))
+        sauces_tab.click()
+
+        active_tab = WebDriverWait(driver, 5).until(EC.visibility_of_element_located(MainPage.ACTIVE_TAB_SAUCES))
+        assert "Соусы" in active_tab.text
+
+    def test_fillings_tab(self, driver):
+       
+        fillings_tab = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(MainPage.FILLINGS_TAB))
+        fillings_tab.click()
+
+        active_tab = WebDriverWait(driver, 5).until(EC.visibility_of_element_located(MainPage.ACTIVE_TAB_FILLINGS))
+        assert "Начинки" in active_tab.text
         

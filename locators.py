@@ -4,10 +4,12 @@ class MainPage:
     LOGIN_BUTTON = (By.XPATH, "//button[text()='Войти в аккаунт']")
     PERSONAL_ACCOUNT_BUTTON = (By.XPATH, "//p[text()='Личный Кабинет']")
     ORDER_BUTTON = (By.XPATH, "//button[text()='Оформить заказ']")
-    BUNS_TAB = (By.XPATH, "//span[text()='Булки']/..")
+    BUNS_TAB = (By.XPATH, "//span[text()='Булки']")
     SAUCES_TAB = (By.XPATH, "//span[text()='Соусы']/..")
     FILLINGS_TAB = (By.XPATH, "//span[text()='Начинки']/..")
-    ACTIVE_TAB = (By.XPATH, "//div[contains(@class, 'tab_tab_type_current')]")
+    ACTIVE_TAB_BUNS = (By.XPATH, "//h2[contains(@class, 'text_type_main-medium') and text()='Булки']")
+    ACTIVE_TAB_SAUCES = (By.XPATH, "//h2[contains(@class, 'text_type_main-medium') and text()='Соусы']")
+    ACTIVE_TAB_FILLINGS = (By.XPATH, "//h2[contains(@class, 'text_type_main-medium') and text()='Начинки']")
 
 class LoginPage:
     EMAIL_INPUT = (By.NAME, "name")
